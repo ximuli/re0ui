@@ -1,5 +1,5 @@
 <template>
-<div>ximuli2</div>
+<div>Doc Page</div>
 </template>
 
 <script>

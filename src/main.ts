@@ -1,16 +1,16 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import Ximuli from './components/Ximuli.vue'
-import Ximuli2 from './components/Ximuli2.vue'
-import './index.css'
+import Home from './views/Home.vue'
+import Doc from './views/Doc.vue'
+import './index.scss'
 import { createWebHashHistory, createRouter } from 'vue-router'
 
 const history = createWebHashHistory()
 const router = createRouter({
   history,
   routes: [
-    { path: '/', component: Ximuli },
-    { path: '/xxx', component: Ximuli2 },
+    { path: '/', component: Home },
+    { path: '/doc', component: Doc },
   ]
 })
 

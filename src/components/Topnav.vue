@@ -1,7 +1,7 @@
 <template>
 <div class="topnav">
   <span class="toggleIcon" @click="toggleAside"></span>
-  <div class="logo">
+  <div class="logo" @click="$router.push('/')">
     <span class="left">Re</span><span>:Zero UI</span>
   </div>
   <div class="links" @click="onClick">
@@ -17,14 +17,19 @@ import {
   Ref
 } from 'vue'
 
+import {
+  useRouter
+} from 'vue-router'
+
 export default {
   setup() {
     const asideVisible = inject < Ref < boolean >> ('asideVisible')
-
+    const router = useRouter()
     const onClick = (e) => {
       const text = e.target.innerText
       if (text === 'Doc') {
-        this.$router.push('/doc')
+        console.log('text', text)
+        router.push('/doc')
       } else if (text === 'Github') {
         window.open('https://github.com/ximuli/re0ui')
       }
@@ -45,11 +50,13 @@ export default {
 @import './../assets/style/variable.scss';
 
 .topnav {
+  font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
   padding: 1vw 3vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.25);
 
   .toggleIcon {
     display: none;
@@ -70,13 +77,10 @@ export default {
       top: 50%;
       transform: translateY(-50%);
     }
-
-    // background-color: $colorEmilia;
   }
 
   .logo {
     font-size: 24px;
-    font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
 
     .left {
       color: $colorEmilia;
@@ -84,8 +88,15 @@ export default {
   }
 
   .links {
+    letter-spacing: 1px;
+
     >span {
+      cursor: pointer;
       margin-left: 2vw;
+
+      &:hover {
+        color: $colorEmilia;
+      }
     }
   }
 }

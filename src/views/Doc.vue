@@ -1,15 +1,24 @@
 <template>
 <Topnav />
 <div class="content">
-  <aside v-if="asideVisible">
-    <ol>
-      <li>Switch组件</li>
-      <li>Switch组件</li>
-      <li>Switch组件</li>
+  <aside class="aside" v-if="asideVisible" style="border: 1px solid green;">
+    <ol class="aside-list">
+      <li>
+        <router-link to="/doc/switch">Switch组件</router-link>
+      </li>
+      <li>
+        <router-link to="/doc/button">Button 组件</router-link>
+      </li>
+      <li>
+        <router-link to="/doc/dialog">Dialog 组件</router-link>
+      </li>
+      <li>
+        <router-link to="/doc/tabs">Tabs 组件</router-link>
+      </li>
     </ol>
   </aside>
-  <main class="main">
-    Main
+  <main class="main" style="border: 1px solid blue;">
+    <router-view></router-view>
   </main>
 </div>
 </template>
@@ -38,9 +47,32 @@ export default {
 <style lang="scss" scoped>
 .content {
   display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+
+  .aside {
+    width: 260px;
+    box-sizing: border-box;
+    padding: 20px 0 0 20px;
+    background: url('./../assets/img/character_emilia.png') bottom/contain no-repeat;
+
+    .aside-list {
+      background-color: rgba(255, 255, 255, .8);
+
+      li {
+        &:not(:first-child) {
+          margin-top: 0.5em;
+        }
+
+      }
+    }
+  }
 
   .main {
     flex-grow: 1;
+    padding-top: 20px;
+    padding-left: 20px;
+    overflow: scroll;
   }
 }
 </style>

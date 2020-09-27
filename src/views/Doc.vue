@@ -49,12 +49,15 @@ export default {
   display: flex;
   flex-grow: 1;
   overflow: hidden;
+  position: relative;
 
   .aside {
+    position: absolute;
+    height: 100%;
     width: 260px;
     box-sizing: border-box;
     padding: 20px 0 0 20px;
-    background: url('./../assets/img/character_emilia.png') bottom/contain no-repeat;
+    background: rgba(255, 255, 255, .9) url('./../assets/img/character_emilia.png') bottom/contain no-repeat;
 
     .aside-list {
       background-color: rgba(255, 255, 255, .8);

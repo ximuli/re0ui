@@ -81,6 +81,7 @@ export default {
 
   .logo {
     font-size: 24px;
+    cursor: pointer;
 
     .left {
       color: $colorEmilia;

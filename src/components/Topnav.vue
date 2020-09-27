@@ -1,7 +1,7 @@
 <template>
 <div class="topnav">
   <span class="toggleIcon" @click="toggleAside"></span>
-  <div class="logo" @click="$router.push('/')">
+  <div class="logo" v-show="isShow" @click="$router.push('/')">
     <span class="left">Re</span><span>:Zero UI</span>
   </div>
   <div class="links" @click="onClick">
@@ -14,17 +14,20 @@
 <script lang="ts">
 import {
   inject,
-  Ref
+  Ref,
+  computed
 } from 'vue'
 
 import {
-  useRouter
+  useRouter,
+  useRoute
 } from 'vue-router'
 
 export default {
   setup() {
     const asideVisible = inject < Ref < boolean >> ('asideVisible')
     const router = useRouter()
+    const route = useRoute()
     const onClick = (e) => {
       const text = e.target.innerText
       if (text === 'Doc') {
@@ -37,10 +40,14 @@ export default {
     const toggleAside = () => {
       asideVisible.value = !asideVisible.value
     }
+    const isShow = computed(() => {
+      return route.path !== '/'
+    })
     return {
       asideVisible,
       toggleAside,
-      onClick
+      onClick,
+      isShow
     }
   },
 }
@@ -50,6 +57,7 @@ export default {
 @import './../assets/style/variable.scss';
 
 .topnav {
+  min-height: 27px;
   font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
   padding: 1vw 3vw;
   display: flex;

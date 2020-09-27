@@ -1,10 +1,10 @@
 <template>
 <Topnav />
 <div class="home">
-  <h1>
+  <h1 class="title">
     <span class="left">Re</span>:Zero UI
   </h1>
-  <h3>一个厉害的UI轮子库</h3>
+  <div class="subtitle">基于 Vue.js 3.x<br>UI轮子库</div>
   <div class="btn-wrapper">
     <div class="btn" @click="$router.push('/doc')">快速开始</div>
   </div>
@@ -31,8 +31,21 @@ export default {
   justify-content: center;
   align-items: center;
 
+  .title {
+    font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
+    margin-top: 0;
+  }
+
   .left {
     color: $colorEmilia;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.5em;
+    margin-bottom: 1.5em;
+    color: #273849;
   }
 
   .btn-wrapper {

@@ -52,7 +52,7 @@ export default {
   position: relative;
 
   .aside {
-    position: absolute;
+    // position: absolute;
     height: 100%;
     width: 260px;
     box-sizing: border-box;

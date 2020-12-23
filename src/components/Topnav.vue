@@ -57,7 +57,7 @@ export default {
 @import './../assets/style/variable.scss';
 
 .topnav {
-  min-height: 27px;
+  // min-height: 27px;
   font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
   padding: 1vw 3vw;
   display: flex;

@@ -1,5 +1,6 @@
 <template>
-  <button class="re0-button" :class="classes">
+  <button class="re0-button" :class="classes" :disabled="disabled">
+    <span v-if="loading" class="re0-button-loading"></span>
     <slot></slot>
   </button>
 </template>
@@ -15,14 +16,27 @@ export default {
     size: {
       type: String,
       default: 'normal'
+    },
+    level: {
+      type: String,
+      default: 'normal'
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props) {
-    const { theme, size } = props
+    const { theme, size, level } = props
     const classes = computed(() => {
       return {
         [`re0-theme-${theme}`]: theme,
-        [`re0-size-${size}`]: size
+        [`re0-size-${size}`]: size,
+        [`re0-level-${level}`]: level
       }
     })
 
@@ -86,5 +100,87 @@ $radius: 4px;
     height: 20px;
     padding: 0 4px;
   }
+
+  &.re0-theme-button {
+    &.re0-level-main {
+      background: $colorRem;
+      color: #ffffff;
+      border-color: $colorRem;
+      &:hover, &:focus {
+        background: darken($colorRem, 10%);
+        border-color: darken($colorRem, 10%);
+      }
+    }
+    &.re0-level-danger {
+      background: $colorReinhard;
+      color: #ffffff;
+      border-color: $colorReinhard;
+      &:hover, &:focus {
+        background: darken($colorReinhard, 10%);
+        border-color: darken($colorReinhard, 10%);
+      }
+    }
+  }
+  &.re0-theme-link {
+    &.re0-level-main {
+      color: $colorRem;
+      &:hover, &:focus {
+        color: darken($colorRem, 10%);
+      }
+    }
+    &.re0-level-danger {
+      color: $colorReinhard;
+      &:hover, &:focus {
+        color: darken($colorReinhard, 10%);
+      }
+    }
+  }
+  &.re0-theme-text {
+    &.re0-level-main {
+      color: $colorRem;
+      &:hover, &:focus {
+        color: darken($colorRem, 10%);
+      }
+    }
+    &.re0-level-danger {
+      color: $colorReinhard;
+      &:hover, &:focus {
+        color: darken($colorReinhard, 10%);
+      }
+    }
+  }
+
+  &.re0-theme-button {
+    &[disabled] {
+      cursor: not-allowed;
+      color: $colorPack;
+      &:hover {
+        border-color: $colorPack;
+      }
+    }
+  }
+  &.re0-theme-link, &.re0-theme-text {
+    &[disabled] {
+      cursor: not-allowed;
+      color: $colorPack;
+    }
+  }
+
+  > .re0-button-loading {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    margin-right: 4px;
+    border-radius: 8px;
+    border-color: $colorEmilia $colorEmilia $colorEmilia transparent;
+    border-style: solid;
+    border-width: 2px;
+    animation: re0-button-loading-spin 1s infinite linear;
+  }
+}
+
+@keyframes re0-button-loading-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>

@@ -1,12 +1,17 @@
 <template>
 <div>
+  <Dialog></Dialog>
   <div class="item" v-for="(item, index) in 30" :key="index">DialogDemo</div>
 </div>
 </template>
 
 <script>
-export default {
+import Dialog from '../lib/Dialog.vue'
 
+export default {
+  components: {
+    Dialog
+  }
 }
 </script>
 

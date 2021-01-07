@@ -5,7 +5,7 @@
   <span>{{ value }}</span>
 </template>
 
-<script>
+<script lang="ts">
 import { ref } from 'vue'
 export default {
   props: {

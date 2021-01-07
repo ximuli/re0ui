@@ -52,7 +52,7 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
 import Button from './../lib/Button.vue'
 
 export default {

@@ -1,29 +1,68 @@
 <template>
-  <div class="re0-dialog-overlay"></div>
-  <div class="re0-dialog-wrapper">
-    <div class="re0-dialog">
-      <header>
-        标题
-        <span class="re0-dialog-close"></span>
-      </header>
-      <main>
-        <p>苟利国家生死以，</p>
-        <p>岂因祸福避趋之。</p>
-      </main>
-      <footer>
-        <Button level="main">确认</Button>
-        <Button>取消</Button>
-      </footer>
+  <template v-if="visible">
+    <div class="re0-dialog-overlay" @click="onClickOverlay"></div>
+    <div class="re0-dialog-wrapper">
+      <div class="re0-dialog">
+        <header>
+          标题
+          <span class="re0-dialog-close" @click="close"></span>
+        </header>
+        <main>
+          <p>苟利国家生死以，</p>
+          <p>岂因祸福避趋之。</p>
+        </main>
+        <footer>
+          <Button level="main" @click="confirm">确认</Button>
+          <Button @click="cancel">取消</Button>
+        </footer>
+      </div>
     </div>
-  </div>
+  </template>
 </template>
 
-<script>
+<script lang="ts">
 import Button from './Button.vue'
 
 export default {
   components: {
     Button
+  },
+  props: {
+    visible: {
+      type: Boolean,
+      default: false
+    },
+    closeOnClickOverlay: {
+      type: Boolean,
+      default: true
+    },
+    confirm: {
+      type: Function
+    },
+    cancel: {
+      type: Function
+    }
+  },
+  setup(props, context) {
+    const close = () => {
+      context.emit('update:visible', false)
+    }
+
+    const onClickOverlay = () => {
+      if (props.closeOnClickOverlay) {
+        close()
+      }
+    }
+    const confirm = () => {
+      if (props.confirm && props.confirm() !== false) {
+        props.confirm()
+        close()
+      }
+    }
+    const cancel= () => {
+      close()
+    }
+    return { close, onClickOverlay, confirm, cancel }
   }
 }
 </script>

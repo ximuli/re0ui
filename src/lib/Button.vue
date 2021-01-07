@@ -103,12 +103,12 @@ $radius: 4px;
 
   &.re0-theme-button {
     &.re0-level-main {
-      background: $colorRem;
+      background: $colorEmilia;
       color: #ffffff;
-      border-color: $colorRem;
+      border-color: $colorEmilia;
       &:hover, &:focus {
-        background: darken($colorRem, 10%);
-        border-color: darken($colorRem, 10%);
+        background: darken($colorEmilia, 10%);
+        border-color: darken($colorEmilia, 10%);
       }
     }
     &.re0-level-danger {
@@ -123,9 +123,9 @@ $radius: 4px;
   }
   &.re0-theme-link {
     &.re0-level-main {
-      color: $colorRem;
+      color: $colorEmilia;
       &:hover, &:focus {
-        color: darken($colorRem, 10%);
+        color: darken($colorEmilia, 10%);
       }
     }
     &.re0-level-danger {
@@ -137,9 +137,9 @@ $radius: 4px;
   }
   &.re0-theme-text {
     &.re0-level-main {
-      color: $colorRem;
+      color: $colorEmilia;
       &:hover, &:focus {
-        color: darken($colorRem, 10%);
+        color: darken($colorEmilia, 10%);
       }
     }
     &.re0-level-danger {

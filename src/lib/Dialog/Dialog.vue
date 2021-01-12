@@ -1,33 +1,38 @@
 <template>
   <template v-if="visible">
-    <div class="re0-dialog-overlay" @click="onClickOverlay"></div>
-    <div class="re0-dialog-wrapper">
-      <div class="re0-dialog">
-        <header>
-          标题
-          <span class="re0-dialog-close" @click="close"></span>
-        </header>
-        <main>
-          <p>苟利国家生死以，</p>
-          <p>岂因祸福避趋之。</p>
-        </main>
-        <footer>
-          <Button level="main" @click="confirm">确认</Button>
-          <Button @click="cancel">取消</Button>
-        </footer>
+    <teleport to="body">
+      <div class="re0-dialog-overlay" @click="onClickOverlay"></div>
+      <div class="re0-dialog-wrapper">
+        <div class="re0-dialog">
+          <header>
+            <slot name="title"></slot>
+            <span class="re0-dialog-close" @click="close"></span>
+          </header>
+          <main>
+            <slot name="content"></slot>
+          </main>
+          <footer>
+            <Button level="main" @click="confirm">确认</Button>
+            <Button @click="cancel">取消</Button>
+          </footer>
+        </div>
       </div>
-    </div>
+    </teleport>
   </template>
 </template>
 
 <script lang="ts">
-import Button from './Button.vue'
+import Button from '../Button.vue'
 
 export default {
   components: {
     Button
   },
   props: {
+    title: {
+      type: String,
+      default: '提示'
+    },
     visible: {
       type: Boolean,
       default: false
@@ -60,6 +65,8 @@ export default {
       }
     }
     const cancel= () => {
+      // props.cancel && props.cancel()
+      props.cancel?.()
       close()
     }
     return { close, onClickOverlay, confirm, cancel }

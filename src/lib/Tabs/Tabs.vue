@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { onMounted, onUpdated, ref } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 import Tab from './Tab.vue'
 
 export default {
@@ -30,16 +30,17 @@ export default {
     const selectedItem = ref<HTMLDivElement>(null)
     const indicator = ref<HTMLDivElement>(null)
     const container = ref<HTMLDivElement>(null)
-    const getTabBorder = (() => {
-      const { width } = selectedItem.value.getBoundingClientRect()
-      indicator.value.style.width = width + 'px'
-      console.log('container', container.value)
-      const { left: containerLeft } = container.value.getBoundingClientRect()
-      const { left: resultLeft } = selectedItem.value.getBoundingClientRect()
-      indicator.value.style.left = resultLeft - containerLeft + 'px'
+    onMounted(() => {
+      watchEffect(() => {
+        console.log('selectedItem', selectedItem)
+        const { width } = selectedItem.value.getBoundingClientRect()
+        indicator.value.style.width = width + 'px'
+        console.log('container', container.value)
+        const { left: containerLeft } = container.value.getBoundingClientRect()
+        const { left: resultLeft } = selectedItem.value.getBoundingClientRect()
+        indicator.value.style.left = resultLeft - containerLeft + 'px'
+      })
     })
-    onMounted(getTabBorder)
-    onUpdated(getTabBorder)
     const defaults = context.slots.default()
     defaults.forEach(tag => {
       if (tag.type !== Tab) {

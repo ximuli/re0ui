@@ -3,7 +3,7 @@
     <div class="re0-tabs-nav" ref="container">
       <div class="re0-tabs-nav-item" :class="{ selected: title === selected }"
         v-for="(title, index) in titles" :key="index"
-        :ref="el => { if (el) navItems[index] = el }" @click="onSelect(title)">
+        :ref="el => { if (title === selected) selectedItem = el }" @click="onSelect(title)">
         {{ title }}
       </div>
       <div ref="indicator" class="re0-tabs-nav-indicator"></div>
@@ -27,17 +27,15 @@ export default {
     }
   },
   setup(props, context) {
-    const navItems = ref<HTMLDivElement[]>([])
+    const selectedItem = ref<HTMLDivElement>(null)
     const indicator = ref<HTMLDivElement>(null)
     const container = ref<HTMLDivElement>(null)
     const getTabBorder = (() => {
-      const divs = navItems.value
-      const result = divs.filter(div => div.classList.contains('selected'))[0]
-      const { width } = result.getBoundingClientRect()
+      const { width } = selectedItem.value.getBoundingClientRect()
       indicator.value.style.width = width + 'px'
       console.log('container', container.value)
       const { left: containerLeft } = container.value.getBoundingClientRect()
-      const { left: resultLeft } = result.getBoundingClientRect()
+      const { left: resultLeft } = selectedItem.value.getBoundingClientRect()
       indicator.value.style.left = resultLeft - containerLeft + 'px'
     })
     onMounted(getTabBorder)
@@ -55,7 +53,7 @@ export default {
     const onSelect = (title: string) => {
       context.emit('update:selected', title)
     }
-    return { defaults, titles, onSelect, navItems, indicator, container }
+    return { defaults, titles, onSelect, selectedItem, indicator, container }
   }
 }
 </script>

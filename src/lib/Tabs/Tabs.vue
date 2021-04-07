@@ -9,15 +9,13 @@
       <div ref="indicator" class="re0-tabs-nav-indicator"></div>
     </div>
     <div class="re0-tabs-content">
-      <component class="re0-tabs-content-item"
-        :class="{ selected: item.props.title === selected }"
-        v-for="(item, index) in defaults" :key="index" :is="item"></component>
+      <component :is="current" :key="current.props.title"></component>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { onMounted, ref, watchEffect } from 'vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
 import Tab from './Tab.vue'
 
 export default {
@@ -47,6 +45,9 @@ export default {
         throw new Error('Tabs 子标签必须是 Tab')
       }
     })
+    const current = computed(() => {
+      return defaults.find(tag => tag.props.title === props.selected)
+    })
     const titles = defaults.map(tag => {
       return tag.props.title
     })
@@ -54,7 +55,7 @@ export default {
     const onSelect = (title: string) => {
       context.emit('update:selected', title)
     }
-    return { defaults, titles, onSelect, selectedItem, indicator, container }
+    return { defaults, current, titles, onSelect, selectedItem, indicator, container }
   }
 }
 </script>
@@ -92,12 +93,6 @@ export default {
 
   .re0-tabs-content {
     padding: 8px 0;
-    .re0-tabs-content-item {
-      display: none;
-      &.selected {
-        display: block;
-      }
-    }
   }
 }
 </style>

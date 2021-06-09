@@ -34,7 +34,7 @@ export default {
   .main {
     padding: 5vw 0;
     width: 45vw;
-    background-color: rgba(255, 255, 255, .6);
+    // background-color: rgba(255, 255, 255, .6);
     display: flex;
     flex-direction: column;
     justify-content: center;

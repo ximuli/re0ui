@@ -3,17 +3,8 @@
   <div class="content">
     <aside class="aside" v-if="asideVisible" style="border: 1px solid green">
       <ol class="aside-list">
-        <li>
-          <router-link to="/doc/switch">Switch组件</router-link>
-        </li>
-        <li>
-          <router-link to="/doc/button">Button 组件</router-link>
-        </li>
-        <li>
-          <router-link to="/doc/dialog">Dialog 组件</router-link>
-        </li>
-        <li>
-          <router-link to="/doc/tabs">Tabs 组件</router-link>
+        <li v-for="(item, index) in asideList" :key="index">
+          <router-link :to="item.to"> {{ item.name }} </router-link>
         </li>
       </ol>
     </aside>
@@ -25,13 +16,20 @@
 
 <script lang="ts">
 import Topnav from "./../components/Topnav.vue";
-import { inject, Ref } from "vue";
+import { inject, Ref, reactive } from "vue";
 
 export default {
   setup() {
     const asideVisible = inject<Ref<boolean>>("asideVisible");
+    const asideList = reactive([
+      { to: '/doc/switch', name: 'Switch 组件' },
+      { to: '/doc/button', name: 'Button 组件' },
+      { to: '/doc/dialog', name: 'Dialog 组件' },
+      { to: '/doc/tabs', name: 'Tabs 组件' }
+    ])
     return {
       asideVisible,
+      asideList
     };
   },
 
@@ -54,11 +52,11 @@ export default {
     width: 260px;
     box-sizing: border-box;
     padding: 20px 0 0 20px;
-    background: rgba(255, 255, 255, 0.6) url("./../assets/img/character_emilia.gif")
+    background: url("./../assets/img/character_emilia.gif")
       bottom/contain no-repeat;
 
     .aside-list {
-      background-color: rgba(255, 255, 255, 0.8);
+      // background-color: rgba(255, 255, 255, 0.8);
 
       li {
         &:not(:first-child) {

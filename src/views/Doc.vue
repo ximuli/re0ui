@@ -2,8 +2,15 @@
   <Topnav />
   <div class="content">
     <aside class="aside" v-if="asideVisible" style="border: 1px solid green">
-      <ol class="aside-list">
-        <li v-for="(item, index) in asideList" :key="index">
+      <h2>文档</h2>
+      <ol>
+        <li v-for="(item, index) in asideDocList" :key="'asideDocList' + index">
+          <router-link :to="item.to"> {{ item.name }} </router-link>
+        </li>
+      </ol>
+      <h2>组件列表</h2>
+      <ol>
+        <li v-for="(item, index) in asideComponentList" :key="'asideComponentList' + index">
           <router-link :to="item.to"> {{ item.name }} </router-link>
         </li>
       </ol>
@@ -21,7 +28,12 @@ import { inject, Ref, reactive } from "vue";
 export default {
   setup() {
     const asideVisible = inject<Ref<boolean>>("asideVisible");
-    const asideList = reactive([
+    const asideDocList = reactive([
+      { to: '/doc/intro', name: '介绍' },
+      { to: '/doc/install', name: '安装' },
+      { to: '/doc/get-started', name: '开始使用' },
+    ])
+    const asideComponentList = reactive([
       { to: '/doc/switch', name: 'Switch 组件' },
       { to: '/doc/button', name: 'Button 组件' },
       { to: '/doc/dialog', name: 'Dialog 组件' },
@@ -29,10 +41,10 @@ export default {
     ])
     return {
       asideVisible,
-      asideList
+      asideDocList,
+      asideComponentList
     };
   },
-
   components: {
     Topnav,
   },
@@ -54,16 +66,6 @@ export default {
     padding: 20px 0 0 20px;
     background: url("./../assets/img/character_emilia.gif")
       bottom/contain no-repeat;
-
-    .aside-list {
-      // background-color: rgba(255, 255, 255, 0.8);
-
-      li {
-        &:not(:first-child) {
-          margin-top: 0.5em;
-        }
-      }
-    }
   }
 
   .main {
